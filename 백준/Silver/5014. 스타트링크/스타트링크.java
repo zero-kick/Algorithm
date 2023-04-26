@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
 
 public class Main {
     public static int f, s, g, u, d;
-    public static int[] floor;
     public static int[] visit;
     public static Queue<Integer> q;
 
@@ -22,7 +21,6 @@ public class Main {
         d = Integer.parseInt(st.nextToken());       // 아래로 d층
         br.close();
 
-        floor = new int[f];
         visit = new int[f];         // 강호 방문, 이동 횟수
         Arrays.fill(visit, -1); // 최초에는 -1 세팅
         q = new LinkedList<Integer>();
