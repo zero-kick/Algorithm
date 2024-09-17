@@ -25,10 +25,8 @@ public class Main {
                 map.put(kind, map.getOrDefault(kind, 0)+1);
             }
 
-            int[] arr = map.values().stream().mapToInt(a -> a.intValue()).toArray();
-
             int cnt = 1;
-            for(int a : arr) {
+            for(int a : map.values()) {
                 cnt = cnt * (a+1);
             }
             answer.add(cnt-1);
