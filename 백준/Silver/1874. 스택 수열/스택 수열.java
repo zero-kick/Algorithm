@@ -1,46 +1,49 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Stack;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
 
         int n = Integer.parseInt(br.readLine());
 
-        Stack<Integer> stk = new Stack<Integer>();
-        int lastVal = 0;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = Integer.parseInt(br.readLine());
 
-        for(int i = 0; i < n; i++) {
-            int x = Integer.parseInt(br.readLine());
+        Stack<Integer> stk = new Stack<>();
 
-            if(x > lastVal) {
-                for(int j = lastVal+1; j <= x; j++) {
-                    stk.push(j);
-                    sb.append("+\n");
-                }
-                lastVal = x;
+        int num = 0;
+        int i = 0;
+        while (i < n) {
+            if (num > n)
+                break;
+
+            if (stk.isEmpty()) {
+                stk.push(++num);
+                sb.append("+\n");
             }
 
-            if(x == stk.peek()) {
+            if (arr[i] == stk.peek()) {
                 stk.pop();
                 sb.append("-\n");
+                i++;
+            } else {
+                stk.push(++num);
+                sb.append("+\n");
             }
         }
 
-        if(!stk.isEmpty()) {
+        if (!stk.isEmpty())
             bw.write("NO");
-        } else {
-            bw.write(String.valueOf(sb));
-        }
+        else
+            bw.write(sb.toString());
 
-        br.close();
         bw.flush();
         bw.close();
+        br.close();
     }
 }
