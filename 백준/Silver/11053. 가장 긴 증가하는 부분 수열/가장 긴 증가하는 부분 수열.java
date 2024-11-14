@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main (String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n];
+        int[] dp = new int[n];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++)
+            a[i] = Integer.parseInt(st.nextToken());
+
+        // 모든 원소는 최소한 자기 자신만으로 이루어진 부분 수열이므로 길이 1로 초기화
+        Arrays.fill(dp, 1);
+
+        // dp 점화식을 통한 LIS(Longest Increasing Subsequence) 계산
+        for (int i = 1; i < n; i++)
+            for (int j = 0; j < i; j++)
+                if (a[i] > a[j])
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+
+        // 가장 긴 증가하는 수열 찾기
+        int maxLen = 0;
+        for (int i = 0; i < n; i++)
+            maxLen = Math.max(maxLen, dp[i]);
+
+        bw.write(String.valueOf(maxLen));
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
